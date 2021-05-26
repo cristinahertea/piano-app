@@ -9,8 +9,9 @@ export const StyledTitle = styled.div`
 export const MenuWrapper = styled.div`
   width: 100%;
   display: block;
-  color: white;
-  background-color: grey;
+  color: #34ebeb;
+  background-color: #000000;
+  background-image: linear-gradient(45deg, #000000 0%, #434343 74%);
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100px;
@@ -21,7 +22,7 @@ export const ButtonsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
-  border: 3px solid white;
+  border: 3px solid #8442f5;
   padding: 5px;
   border-radius: 10px;
   height: 25px;
@@ -33,6 +34,6 @@ export const MenuButton = styled.div`
   cursor: pointer;
 
   &:hover {
-    color: black;
+    color: #34eb8f;
   }
 `

@@ -1,27 +1,50 @@
-import React, { useState } from 'react'
-import { KeyboardWrapper, KeyField } from './Keyboard.styles'
-import { Key } from './Key.component'
-import { config } from './Key.config'
+import React, { useState, useEffect } from 'react'
+import {
+  KeyboardWrapper,
+  WhiteKeyField,
+  BlackKeyField,
+} from './Keyboard.styles'
+import { BlackKey, Key } from './Key.component'
+import { whiteConfig, blackConfig, keyConfig } from './Key.config'
 
 export const Keyboard = () => {
-  const [pressed, setPressed] = useState(false)
+  const [pressed, setPressed] = useState([])
+
   const onKeyPressed = (e) => {
-    console.log(e.keyCode)
+    // console.log(e.keyCode)
+    if (pressed.includes(e.keyCode)) return
+    setPressed([...pressed, e.keyCode]) //spreading
   }
   const onKeyReleased = (e) => {
-    console.log(e.keyCode)
+    // console.log(e.keyCode)
+    setPressed(pressed.filter((el) => el !== e.keyCode))
   }
+
+  useEffect(() => {
+    console.log(pressed)
+  }, [pressed])
+
   return (
     <KeyboardWrapper
       tabIndex='-1'
       onKeyUp={onKeyReleased}
       onKeyDownCapture={onKeyPressed}
     >
-      <KeyField length={config.length}>
-        {config.map((el) => (
-          <Key config={el} />
+      <WhiteKeyField length={whiteConfig.length} extra={keyConfig}>
+        {whiteConfig.map((el) => (
+          <Key key={el.label} config={el} extra={keyConfig} pressed={pressed} />
         ))}
-      </KeyField>
+      </WhiteKeyField>
+      <BlackKeyField length={blackConfig.length} extra={keyConfig}>
+        {blackConfig.map((el) => (
+          <BlackKey
+            key={el.label}
+            config={el}
+            extra={keyConfig}
+            pressed={pressed}
+          />
+        ))}
+      </BlackKeyField>
     </KeyboardWrapper>
   )
 }
